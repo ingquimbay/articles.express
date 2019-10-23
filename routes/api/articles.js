@@ -95,4 +95,23 @@ router.put('/', function (req, res) {
   });
 });
 
+/* DELETE an article from db */
+router.delete('/:articleIda', function (req, res) {
+  var articleId = req.params.articleId;
+  Articles.remove({
+    '_id': articleId
+  }, function (err, removed) {
+    if (err) {
+      return res.json({
+        success: false,
+        error: err
+      });
+    }
+    return res.json({
+      success: true,
+      status: removed
+    });
+  });
+});
+
 module.exports = router;
