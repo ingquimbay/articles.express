@@ -29,7 +29,7 @@ var Articles = new Schema({
   }
 });
 
-//Auto set the slug prior to validation
+// Auto set the slug prior to validation
 Articles.pre('validate', function (next) {
 
   // Do not overwrite the slug if it already exists
@@ -46,6 +46,11 @@ Articles.pre('validate', function (next) {
 
   this.modified = new Date().toISOString();
 
+  next();
+});
+
+Articles.pre('save', function (next) {
+  this.modified = new Date().toISOString();
   next();
 });
 
