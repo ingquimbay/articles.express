@@ -30,7 +30,7 @@ var Articles = new Schema({
 });
 
 //Auto set the slug prior to validation
-Arti cles.pre('validate', function (next) {
+Articles.pre('validate', function (next) {
 
   // Do not overwrite the slug if it already exists
   if (this.slug == undefined) {
