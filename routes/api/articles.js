@@ -59,4 +59,40 @@ router.post('/', function (req, res) {
   });
 });
 
+/* PUT update existing article */
+router.put('/', function (req, res) {
+  Articles.findOne({
+    '_id': req.body._id
+  }, function (err, article) {
+    if (err) {
+      return res.json({
+        success: false,
+        error: err
+      });
+    }
+    if (article) {
+      let data = req.body;
+      if (data.title) {
+        article.title = data.title;
+      };
+      if (data.slug) {
+        article.slug = data.slug;
+      };
+      article.save(function (err) {
+        if (err) {
+          return res.json({
+            success: false,
+            error: err
+          });
+        } else {
+          return res.json({
+            success: true,
+            article: article
+          });
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;
